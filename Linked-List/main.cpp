@@ -69,7 +69,11 @@ void printLinkedList(Node* root) {
     }
     cout<< "NULL" << endl;
 }
-
+/**
+ *
+ * @param root
+ * @return length of the linked list
+ */
 int lengthLinkedList(Node* root) {
     int counter = 0;
     while(root != NULL) {
@@ -79,11 +83,32 @@ int lengthLinkedList(Node* root) {
     return counter;
 }
 
+Node* removeLinkedList(Node*& root, int removal) {
+    if (root->data == removal) {
+        Node* temp = root->next;
+        delete root;
+        return temp;
+    }
+    Node *prev = NULL;
+    Node *temp = root;
+    while(root != NULL) {
+        if (temp->data == removal) {
+            prev->next = temp->next;
+            return root;
+        }
+        prev = temp;
+        temp = temp->next;
+    }
+    return NULL;
+}
+
 
 int main() {
     int arr[] = { 1, 2, 3, 4, 5 }, n = 5;
     Node* root = createLinkedList(arr, n);
     printLinkedList(root);
-    std::cout << lengthLinkedList(root);
+    std::cout << lengthLinkedList(root) << endl;
+    printLinkedList(removeLinkedList(root,5));
+
     return 0;
 }
