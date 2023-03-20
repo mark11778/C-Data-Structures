@@ -31,14 +31,10 @@ struct Node* newNode(int data) {
 void insertNewNode(Node** root, int data) {
     Node* node = newNode(data);
     Node* ptr;
-    if(*root == NULL) {
-        *root = node;
-    }
+    if(*root == NULL) *root = node;
     else {
         ptr = *root;
-        while(ptr->next != NULL) {
-            ptr = ptr->next;
-        }
+        while(ptr->next != NULL) ptr = ptr->next;
         ptr->next=node;
     }
 }
@@ -52,9 +48,7 @@ void insertNewNode(Node** root, int data) {
  */
 Node* createLinkedList(int arr[], int n) {
     Node *root = NULL;
-    for (int i = 0; i < n; i++) {
-        insertNewNode(&root,arr[i]);
-    }
+    for (int i = 0; i < n; i++) insertNewNode(&root,arr[i]);
     return root;
 }
 
@@ -92,7 +86,6 @@ int lengthLinkedList(Node* root) {
 Node* removeLinkedList(Node*& root, int removal) {
     if (root->data == removal) {
         Node* temp = root->next;
-        delete root;
         return temp;
     }
     Node *prev = NULL;
