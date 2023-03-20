@@ -83,6 +83,12 @@ int lengthLinkedList(Node* root) {
     return counter;
 }
 
+/**
+ *  removes an valuve from the linked list
+ * @param root - reference to the start of the linkedlist
+ * @param removal - the value that is going to be removed
+ * @return updated linked list with that value removed
+ */
 Node* removeLinkedList(Node*& root, int removal) {
     if (root->data == removal) {
         Node* temp = root->next;
@@ -108,7 +114,6 @@ int main() {
     Node* root = createLinkedList(arr, n);
     printLinkedList(root);
     std::cout << lengthLinkedList(root) << endl;
-    printLinkedList(removeLinkedList(root,5));
-
+    printLinkedList(removeLinkedList(root,1));
     return 0;
 }
