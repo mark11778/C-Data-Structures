@@ -1,0 +1,3 @@
+D:/CLionProjects/Data_Sturctures/cmake-build-debug/CMakeFiles/Data_Sturctures.dir
+D:/CLionProjects/Data_Sturctures/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/CLionProjects/Data_Sturctures/cmake-build-debug/CMakeFiles/rebuild_cache.dir
