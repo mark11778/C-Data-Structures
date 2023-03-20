@@ -1,11 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+/**
+ * node class
+ */
 struct Node {
     int data;
     Node* next;
 };
 
+/**
+ * creates a Node with given data as an input
+ *
+ * @param data - integer
+ * @return created node
+ */
 struct Node* newNode(int data) {
     Node* node = new Node;
     node->data=data;
@@ -13,6 +22,12 @@ struct Node* newNode(int data) {
     return node;
 }
 
+/**
+ *  inserts all the nodes into the linkedlist
+ *
+ * @param root - root of the linked list
+ * @param data - the data of the new node
+ */
 void insertNewNode(Node** root, int data) {
     Node* node = newNode(data);
     Node* ptr;
@@ -27,13 +42,14 @@ void insertNewNode(Node** root, int data) {
         ptr->next=node;
     }
 }
-void printLinkedList(Node* root) {
-    while(root != NULL) {
-        cout << root -> data <<" -> ";
-        root = root -> next;
-    }
-    cout<< "NULL" << endl;
-}
+
+/**
+ * creates the linkedlist
+ *
+ * @param arr - array if integers
+ * @param n - number of items in the linkedlist
+ * @return the root of the linkedlist
+ */
 Node* createLinkedList(int arr[], int n) {
     Node *root = NULL;
     for (int i = 0; i < n; i++) {
@@ -42,9 +58,32 @@ Node* createLinkedList(int arr[], int n) {
     return root;
 }
 
+/**
+ *  prints out the length of the Linked list
+ * @param root
+ */
+void printLinkedList(Node* root) {
+    while(root != NULL) {
+        cout << root -> data <<" -> ";
+        root = root -> next;
+    }
+    cout<< "NULL" << endl;
+}
+
+int lengthLinkedList(Node* root) {
+    int counter = 0;
+    while(root != NULL) {
+        counter++;
+        root = root -> next;
+    }
+    return counter;
+}
+
+
 int main() {
     int arr[] = { 1, 2, 3, 4, 5 }, n = 5;
     Node* root = createLinkedList(arr, n);
     printLinkedList(root);
+    std::cout << lengthLinkedList(root);
     return 0;
 }
