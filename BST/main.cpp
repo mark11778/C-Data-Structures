@@ -5,7 +5,7 @@ using namespace std;
 struct Node {
     Node* left;
     Node* right;
-    double data;
+    int data;
 };
 
 /**
@@ -21,8 +21,6 @@ struct Node* newNode(int data) {
     node->right = NULL;
     return node;
 }
-
-
 
 /**
  *  inserts the nodes into the binary sreach tree
@@ -49,36 +47,91 @@ Node* createdRBTree(int arr[], int n) {
     return root;
 }
 
-void printBST(Node* root, int space = 0, int height = 0) {
-    if (root == NULL) {
-        return;
-    }
-    space += height;
-
-    printBST(root->right, space, height);
-
-    cout << endl;
-    for (int i = height; i < space; i++) {
-        cout << " ";
-    }
-    cout << root->data ;
-
-    printBST(root->left, space, height);
+/**
+ * finds the predecessor and assigns the node to be that one
+ * @param node - starts as the node to be removed
+ * @return the data that is stored in the predecessor node
+ */
+int predecessor(Node* &node) {
+    if (node->left == NULL) {
+       int temp = node->data;
+       node = node->right;
+       return temp;
+    } else return predecessor(node->left);
 }
 
-void inOrderTraversal(Node* root) {
-    if (root == NULL) {
-        return;
+/**
+ * method to remove a Node, calls the predescessor if the node has a right child
+ * @param root - the top of the tree
+ * @param data - the int val of the Node to be removed
+ */
+void removeNode(Node* &root, int data) {
+    if (root == NULL) return;
+    if (root->data == data) {
+        if(root->right == NULL) {
+            root = root->left;
+            return;
+        } else {
+            root->data = predecessor(root->right);
+            return;
+        }
     }
+    else if (root -> data > data) removeNode(root->left, data);
+    else removeNode(root->right, data);
+}
+
+/**
+ * prints out the contents of the BST in an inorder traversal
+ * @param root - top of the tree
+ */
+void inOrderTraversal(Node* root) {
+    if (root == NULL)return;
     inOrderTraversal(root->left);
     std::cout << root->data << " ";
     inOrderTraversal(root->right);
 }
 
+int test() {
+    // Define test cases
+    int arr1[] = { 7, 3, 9, 1, 5, 8, 23, 2, 53};
+    int arr2[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int arr3[] = { 5, 4, 3, 2, 1};
+
+    // Test case 1: Removing a leaf node
+    Node* root1 = createdRBTree(arr1, 9);
+    std::cout << "Before removing: ";
+    inOrderTraversal(root1);
+    removeNode(root1, 23);
+    std::cout << "\nAfter removing: ";
+    inOrderTraversal(root1);
+
+    // Test case 2: Removing a node with two children
+    Node* root2 = createdRBTree(arr2, 9);
+    std::cout << "\nBefore removing: ";
+    inOrderTraversal(root2);
+    removeNode(root2, 2);
+    std::cout << "\nAfter removing: ";
+    inOrderTraversal(root2);
+
+    // Test case 3: Removing the root node
+    Node* root3 = createdRBTree(arr3, 5);
+    std::cout << "\nBefore removing: ";
+    inOrderTraversal(root3);
+    removeNode(root3, 5);
+    std::cout << "\nAfter removing: ";
+    inOrderTraversal(root3);
+
+    return 0;
+}
+
 
 int main() {
-    int arr[] = { 7, 3, 9, 1, 5,3,7,23, 2,7,5,8,53}, n = 12;
-    Node* root = createdRBTree(arr,n);
-    inOrderTraversal(root);
+//    int arr[] = { 7, 3, 9, 1, 5,3,7,23, 2,7,5,8,53}, n = 12;
+//    Node* root = createdRBTree(arr,n);
+//    inOrderTraversal(root);
+//    removeNode(root,7);
+//    std::cout << endl;
+//    inOrderTraversal(root);
+    test();
     return 0;
 }
